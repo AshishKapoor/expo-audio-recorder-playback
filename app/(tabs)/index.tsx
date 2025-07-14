@@ -232,7 +232,11 @@ export default function HomeScreen() {
               style={[styles.button, styles.clearButton]}
               onPress={clearRecording}
             >
-              <Text style={styles.buttonText}>Clear Recording</Text>
+              <Text style={styles.buttonText}>
+                {recorderState.isRecording
+                  ? "Start Recording"
+                  : "Clear Recording"}
+              </Text>
             </TouchableOpacity>
           )}
         </View>
