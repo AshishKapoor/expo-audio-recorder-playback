@@ -7,12 +7,7 @@ import React, { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// Move audioUrl outside component to prevent recreation
-// const audioUrl =
-// "https://static.stg.4t5techlabs.com/api/file/95692_37c8e44ccd7b1c5d_audio_recording_1751557375200.m4a";
-const audioUrl = "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav";
-// const audioUrl =
-// "https://static.stg.4t5techlabs.com/api/file/95804_b95f5bd4c8e773da_audio_recorder.mp4";
+const audioUrl = "https://upload.wikimedia.org/wikipedia/commons/c/cc/BAK.wav";
 
 export default function StreamScreen() {
   const player = useAudioPlayer(audioUrl);
