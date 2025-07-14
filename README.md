@@ -1,6 +1,10 @@
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<img width="1290" height="2796" alt="IMG_3345" src="https://github.com/user-attachments/assets/935f39fc-875c-4e7c-9d14-9be9407420b9" />
+<img width="1290" height="2796" alt="IMG_3347" src="https://github.com/user-attachments/assets/4f82a8fd-778a-4ad8-9a80-d1bc64e8a65f" />
+
+
 
 ## Get started
 
