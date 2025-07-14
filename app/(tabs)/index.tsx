@@ -13,6 +13,7 @@ import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import Slider from "@react-native-community/slider";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const [recordingUri, setRecordingUri] = useState<string | null>(null);
@@ -200,157 +201,163 @@ export default function HomeScreen() {
   };
 
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title" style={styles.title}>
-        Audio Recorder & Player
-      </ThemedText>
-
-      {/* Recording Section */}
-      <ThemedView style={styles.section}>
-        <ThemedText type="subtitle" style={styles.sectionTitle}>
-          Recording
+    <SafeAreaView style={{ flex: 1 }}>
+      <ThemedView style={styles.container}>
+        <ThemedText type="title" style={styles.title}>
+          Audio Recorder & Player
         </ThemedText>
 
-        <View style={styles.recordingControls}>
-          <TouchableOpacity
-            style={[
-              styles.button,
-              recorderState.isRecording
-                ? styles.stopButton
-                : styles.recordButton,
-            ]}
-            onPress={recorderState.isRecording ? stopRecording : startRecording}
-          >
-            <Text style={styles.buttonText}>
-              {recorderState.isRecording ? "Stop Recording" : "Start Recording"}
-            </Text>
-          </TouchableOpacity>
+        {/* Recording Section */}
+        <ThemedView style={styles.section}>
+          <ThemedText type="subtitle" style={styles.sectionTitle}>
+            Recording
+          </ThemedText>
 
-          {/* Clear Recording Button - only show when there's a recording and not currently recording */}
-          {recordingUri && !recorderState.isRecording && (
+          <View style={styles.recordingControls}>
             <TouchableOpacity
-              style={[styles.button, styles.clearButton]}
-              onPress={clearRecording}
+              style={[
+                styles.button,
+                recorderState.isRecording
+                  ? styles.stopButton
+                  : styles.recordButton,
+              ]}
+              onPress={
+                recorderState.isRecording ? stopRecording : startRecording
+              }
             >
               <Text style={styles.buttonText}>
                 {recorderState.isRecording
-                  ? "Start Recording"
-                  : "Clear Recording"}
+                  ? "Stop Recording"
+                  : "Start Recording"}
               </Text>
             </TouchableOpacity>
-          )}
-        </View>
 
-        {recorderState.isRecording && (
-          <ThemedText style={styles.recordingTime}>
-            Recording: {formatTime(recorderState.durationMillis / 1000)}
-          </ThemedText>
-        )}
-
-        {recordingUri && !recorderState.isRecording && (
-          <ThemedText style={styles.recordingStatus}>
-            ✅ Recording saved successfully!
-          </ThemedText>
-        )}
-      </ThemedView>
-
-      {/* Playback Section */}
-      {recordingUri && (
-        <ThemedView style={styles.section}>
-          <ThemedText type="subtitle" style={styles.sectionTitle}>
-            Playback
-          </ThemedText>
-
-          {/* Playback Slider */}
-          {playerStatus && (
-            <View style={{ alignItems: "stretch", marginBottom: 16 }}>
-              <Slider
-                minimumValue={0}
-                maximumValue={playerStatus.duration || 0}
-                value={playerStatus.currentTime}
-                onValueChange={(value) => {
-                  if (player) player.seekTo(value);
-                }}
-                step={1}
-                minimumTrackTintColor="#2196F3"
-                maximumTrackTintColor="#ddd"
-                thumbTintColor="#2196F3"
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
+            {/* Clear Recording Button - only show when there's a recording and not currently recording */}
+            {recordingUri && !recorderState.isRecording && (
+              <TouchableOpacity
+                style={[styles.button, styles.clearButton]}
+                onPress={clearRecording}
               >
-                <ThemedText style={{ fontSize: 12 }}>
-                  {formatTime(playerStatus.currentTime)}
-                </ThemedText>
-                <ThemedText style={{ fontSize: 12 }}>
-                  {formatTime(playerStatus.duration || 0)}
-                </ThemedText>
-              </View>
-            </View>
-          )}
-
-          <View style={styles.playbackControls}>
-            <TouchableOpacity
-              style={[styles.button, styles.playButton]}
-              onPress={playRecording}
-            >
-              <Text style={styles.buttonText}>Play</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.button, styles.stopButton]}
-              onPress={stopPlayback}
-            >
-              <Text style={styles.buttonText}>Pause</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.button, styles.replayButton]}
-              onPress={replayRecording}
-            >
-              <Text style={styles.buttonText}>Replay</Text>
-            </TouchableOpacity>
+                <Text style={styles.buttonText}>
+                  {recorderState.isRecording
+                    ? "Start Recording"
+                    : "Clear Recording"}
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
 
-          {playerStatus && (
-            <View style={styles.playbackInfo}>
-              <ThemedText style={styles.playbackTime}>
-                {formatTime(playerStatus.currentTime)} /{" "}
-                {formatTime(playerStatus.duration || 0)}
-              </ThemedText>
-              <ThemedText style={styles.playbackStatus}>
-                Status: {playerStatus.playing ? "Playing" : "Paused"}
-              </ThemedText>
-            </View>
+          {recorderState.isRecording && (
+            <ThemedText style={styles.recordingTime}>
+              Recording: {formatTime(recorderState.durationMillis / 1000)}
+            </ThemedText>
+          )}
+
+          {recordingUri && !recorderState.isRecording && (
+            <ThemedText style={styles.recordingStatus}>
+              ✅ Recording saved successfully!
+            </ThemedText>
           )}
         </ThemedView>
-      )}
 
-      {/* Instructions */}
-      <ThemedView style={styles.section}>
-        <ThemedText type="subtitle" style={styles.sectionTitle}>
-          Instructions
-        </ThemedText>
-        <ThemedText style={styles.instructions}>
-          1. Tap &quot;Start Recording&quot; to begin recording audio
-        </ThemedText>
-        <ThemedText style={styles.instructions}>
-          2. Tap &quot;Stop Recording&quot; when finished
-        </ThemedText>
-        <ThemedText style={styles.instructions}>
-          3. Use &quot;Clear Recording&quot; to remove current recording
-        </ThemedText>
-        <ThemedText style={styles.instructions}>
-          4. Audio will play through speakers (not earpiece)
-        </ThemedText>
-        <ThemedText style={styles.instructions}>
-          5. Use the playback controls to listen to your recording
-        </ThemedText>
+        {/* Playback Section */}
+        {recordingUri && (
+          <ThemedView style={styles.section}>
+            <ThemedText type="subtitle" style={styles.sectionTitle}>
+              Playback
+            </ThemedText>
+
+            {/* Playback Slider */}
+            {playerStatus && (
+              <View style={{ alignItems: "stretch", marginBottom: 16 }}>
+                <Slider
+                  minimumValue={0}
+                  maximumValue={playerStatus.duration || 0}
+                  value={playerStatus.currentTime}
+                  onValueChange={(value) => {
+                    if (player) player.seekTo(value);
+                  }}
+                  step={1}
+                  minimumTrackTintColor="#2196F3"
+                  maximumTrackTintColor="#ddd"
+                  thumbTintColor="#2196F3"
+                />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <ThemedText style={{ fontSize: 12 }}>
+                    {formatTime(playerStatus.currentTime)}
+                  </ThemedText>
+                  <ThemedText style={{ fontSize: 12 }}>
+                    {formatTime(playerStatus.duration || 0)}
+                  </ThemedText>
+                </View>
+              </View>
+            )}
+
+            <View style={styles.playbackControls}>
+              <TouchableOpacity
+                style={[styles.button, styles.playButton]}
+                onPress={playRecording}
+              >
+                <Text style={styles.buttonText}>Play</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.button, styles.stopButton]}
+                onPress={stopPlayback}
+              >
+                <Text style={styles.buttonText}>Pause</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.button, styles.replayButton]}
+                onPress={replayRecording}
+              >
+                <Text style={styles.buttonText}>Replay</Text>
+              </TouchableOpacity>
+            </View>
+
+            {playerStatus && (
+              <View style={styles.playbackInfo}>
+                <ThemedText style={styles.playbackTime}>
+                  {formatTime(playerStatus.currentTime)} /{" "}
+                  {formatTime(playerStatus.duration || 0)}
+                </ThemedText>
+                <ThemedText style={styles.playbackStatus}>
+                  Status: {playerStatus.playing ? "Playing" : "Paused"}
+                </ThemedText>
+              </View>
+            )}
+          </ThemedView>
+        )}
+
+        {/* Instructions */}
+        <ThemedView style={styles.section}>
+          <ThemedText type="subtitle" style={styles.sectionTitle}>
+            Instructions
+          </ThemedText>
+          <ThemedText style={styles.instructions}>
+            1. Tap &quot;Start Recording&quot; to begin recording audio
+          </ThemedText>
+          <ThemedText style={styles.instructions}>
+            2. Tap &quot;Stop Recording&quot; when finished
+          </ThemedText>
+          <ThemedText style={styles.instructions}>
+            3. Use &quot;Clear Recording&quot; to remove current recording
+          </ThemedText>
+          <ThemedText style={styles.instructions}>
+            4. Audio will play through speakers (not earpiece)
+          </ThemedText>
+          <ThemedText style={styles.instructions}>
+            5. Use the playback controls to listen to your recording
+          </ThemedText>
+        </ThemedView>
       </ThemedView>
-    </ThemedView>
+    </SafeAreaView>
   );
 }
 
