@@ -4,9 +4,9 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 <div align="center">
 
-| ![IMG_3345](https://github.com/user-attachments/assets/935f39fc-875c-4e7c-9d14-9be9407420b9) | ![IMG_3347](https://github.com/user-attachments/assets/4f82a8fd-778a-4ad8-9a80-d1bc64e8a65f) |
-| :------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
-|                                         Screenshot 1                                         |                                         Screenshot 2                                         |
+| ![IMG_3345](https://github.com/user-attachments/assets/935f39fc-875c-4e7c-9d14-9be9407420b9) | ![IMG_3347](https://github.com/user-attachments/assets/4f82a8fd-778a-4ad8-9a80-d1bc64e8a65f) | ![IMG_3348](https://github.com/user-attachments/assets/823627f1-67f9-4525-9eae-5d4497996971) |
+| :------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
+|                                         Screenshot 1                                         |                                         Screenshot 2                                         |                                          Streaming                                           |
 
 </div>
 
