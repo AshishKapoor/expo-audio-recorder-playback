@@ -36,6 +36,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="stream"
+        options={{
+          title: "Audio Stream",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="waveform.path" color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
